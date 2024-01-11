@@ -19,8 +19,6 @@ function resetForm() {
     document.getElementById('startDate').value = ""
     document.getElementById('endDate').value = ""
     document.getElementById('inputDescription').value = ""
-
-
 }
 
 function submitBlog() {
@@ -29,73 +27,81 @@ function submitBlog() {
     const startDateValue = document.getElementById('startDate').value
     const endDateValue = document.getElementById('endDate').value
 
-    const daysDifference = getDaysDifference(startDateValue, endDateValue)
+    if (startDateValue == '') {
+        alert('The Start Date must be filled in')
+    } else if (endDateValue == '') {
+        alert('The End Date must be filled in')
+    } else {
 
 
-    let inputName = document.getElementById("inputName").value
-    let inputDescription = document.getElementById("inputDescription").value
-    let inputImage = document.getElementById("inputImage").files
-    const nodeJs = document.getElementById("nodeJs").checked
-    const nextJs = document.getElementById("nextJs").checked
-    const reactJs = document.getElementById("reactJs").checked
-    const phython = document.getElementById("phython").checked
+        const daysDifference = getDaysDifference(startDateValue, endDateValue)
+
+
+        let inputName = document.getElementById("inputName").value
+        let inputDescription = document.getElementById("inputDescription").value
+        let inputImage = document.getElementById("inputImage").files
+        const nodeJs = document.getElementById("nodeJs").checked
+        const nextJs = document.getElementById("nextJs").checked
+        const reactJs = document.getElementById("reactJs").checked
+        const phython = document.getElementById("phython").checked
 
 
 
-    const test = document.getElementsByName('techs')
-    test.forEach(item => {
-        item.checked = false
-        console.log('check item: ', item.checked)
-    })
+        const test = document.getElementsByName('techs')
+        test.forEach(item => {
+            item.checked = false
+            console.log('check item: ', item.checked)
+        })
 
-    inputImage = URL.createObjectURL(inputImage[0])
-    console.log(inputImage)
+        inputImage = URL.createObjectURL(inputImage[0])
+        console.log(inputImage)
 
-    const detailMyProject = {
-        durationDate: daysDifference,
-        name: inputName,
-        description: inputDescription,
-        image: inputImage,
-        posAt: "10 oktober 2020",
-        nodeJs,
-        nextJs,
-        reactJs,
-        phython,
-        author: "Renaldi Mohamad"
+        const detailMyProject = {
+            durationDate: daysDifference,
+            name: inputName,
+            description: inputDescription,
+            image: inputImage,
+            posAt: "10 oktober 2020",
+            nodeJs,
+            nextJs,
+            reactJs,
+            phython,
+            author: "Renaldi Mohamad"
+        }
+
+
+        datamyProject.push(detailMyProject)
+
+        // Untuk reset form
+        resetForm()
+
+        renderBlog()
+
     }
 
 
-    datamyProject.push(detailMyProject)
 
-    // Untuk reset form
-    resetForm()
+    function renderBlog() {
+        document.getElementById("contents").innerHTML = ""
 
-    renderBlog()
-}
+        for (let index = 0; index < datamyProject.length; index++) {
+            let renderTechIcons = ''
 
+            if (datamyProject[index].nodeJs) {
+                renderTechIcons += `<i class="fa-brands fa-node"></i>`
+            }
 
+            if (datamyProject[index].nextJs) {
+                renderTechIcons += `<i class="fa-brands fa-js"></i>`
+            }
+            if (datamyProject[index].reactJs) {
+                renderTechIcons += `<i class="fa-brands fa-react"></i>`
+            }
+            if (datamyProject[index].phython) {
+                renderTechIcons += `<i class="fa-brands fa-python"></i>`
+            }
 
-function renderBlog() {
-    document.getElementById("contents").innerHTML = ""
-
-    for (let index = 0; index < datamyProject.length; index++) {
-        let renderTechIcons = ''
-
-        if (datamyProject[index].nodeJs) {
-            renderTechIcons += `<i class="fa-brands fa-node"></i>`
-        }
-
-        if (datamyProject[index].nextJs) {
-            renderTechIcons += `<i class="fa-brands fa-js"></i>`
-        }
-        if (datamyProject[index].reactJs) {
-            renderTechIcons += `<i class="fa-brands fa-react"></i>`
-        }
-        if (datamyProject[index].phython) {
-            renderTechIcons += `<i class="fa-brands fa-python"></i>`
-        }
-
-        document.getElementById("contents").innerHTML += `
+            document.getElementById("contents").innerHTML += `
             <div style="display: flex; justify-content: center; align-items: center;">
                 <div style="width: 300px; border: solid 1px #d8d1d1; box-shadow: 0px 0px 3px;">
                     <a href="./detailmyproject.html">
@@ -132,5 +138,7 @@ function renderBlog() {
                 </div>
             </div>    
         `
+        }
+
     }
-}
+} 
