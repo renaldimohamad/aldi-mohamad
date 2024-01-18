@@ -36,7 +36,6 @@ function submitBlog() {
 
         const daysDifference = getDaysDifference(startDateValue, endDateValue)
 
-
         let inputName = document.getElementById("inputName").value
         let inputDescription = document.getElementById("inputDescription").value
         let inputImage = document.getElementById("inputImage").files
